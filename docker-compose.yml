@@ -1,0 +1,24 @@
+version: "3.0"
+services:
+  node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: dev
+    volumes:
+      - ./:/var/www/api-augustogehrke
+    ports:
+      - "3333:3333"
+    links:
+      - bd
+    depends_on:
+      - bd
+  bd:
+    container_name: viaflow-bd
+    image: mysql:5.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=viaflow
+    ports:
+      - "3306:3306"
